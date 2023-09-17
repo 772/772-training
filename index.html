@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Eye training</title>
+<style>
+body,html{margin:0;text-align:center;}
+.number{margin:0;}
+input{width:70px;}
+</style>
+</head>
+<body>
+<p id="number" class="number">?</p>
+<p><a href="#" onclick="start()">Start!</a></p>
+<table align="center">
+<tr><td>Text size</td><td><input min="1" id="size" onchange="change()" type="number" value="20"> px</td></tr>
+<tr><td>Amount of numbers</td><td><input min="1" id="amount" onchange="change()" type="number" value="5"></td></tr>
+<tr><td>Timer per number</td><td><input min="0" id="time" type="number" value="4.5"> sec</td></tr>
+<tr><td>Start countdown</td><td><input min="0" id="countdown" type="number" value="3"> sec</td></tr>
+<tr><td>Max number</td><td><input min="0" id="maximum" type="number" value="999"></td></tr>
+<tr><td>Log</td><td><span id="log">_</span></td></tr>
+</table>
+
+<script>
+function change() {
+	document.getElementById("number").style.fontSize = document.getElementById("size").value;
+}
+change();
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+async function start() {
+	document.getElementById("number").innerHTML = "!";
+	await delay(1000 * document.getElementById("countdown").value);
+	document.getElementById("log").innerHTML = " ";
+	var amount = document.getElementById("amount").value;
+	for (var i = 0; i < amount; i++) {
+		var rnd = Math.floor(Math.random() * (document.getElementById("maximum").value));
+		console.log(rnd);
+		document.getElementById("number").innerHTML = rnd;
+		document.getElementById("log").innerHTML += rnd + " ";
+		await delay(1000 * document.getElementById("time").value);
+	}
+	document.getElementById("number").innerHTML = "?";
+}
+</script>
+</body>
+</html>
