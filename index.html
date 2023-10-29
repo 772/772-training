@@ -28,8 +28,11 @@ function delay(time) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 async function start() {
-	document.getElementById("number").innerHTML = "!";
-	await delay(1000 * document.getElementById("countdown").value);
+	let wait = document.getElementById("countdown").value;
+	for (let i = 0; i < wait; i+=1) {
+		document.getElementById("number").innerHTML = wait - i;
+		await delay(1000);
+	}
 	document.getElementById("log").innerHTML = " ";
 	var amount = document.getElementById("amount").value;
 	for (var i = 0; i < amount; i++) {
