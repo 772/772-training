@@ -1,0 +1,126 @@
+<html>
+<head>
+  <title>musical-notes-flying-to-the-left</title>
+  <meta charset="UTF-8">
+  <style>
+  html, body { margin: 10px; }
+  div { border: 2px solid black; height: 18px; border-top: 0; }
+  .first { border-left: 0; border-right: 0; }
+  img { position: absolute; top: -100; }
+  </style>
+</head>
+
+<body>
+<div class="first"></div><div></div><div></div><div></div><div></div>
+<br><br><br><br>
+<img id="Rechts0" src="note.png">
+<img id="Rechts1" src="note.png">
+<img id="Rechts2" src="note.png">
+<img id="Rechts3" src="note.png">
+<img id="Rechts4" src="note.png">
+<img id="Rechts5" src="note.png">
+<img id="Rechts6" src="note.png">
+<img id="Rechts7" src="note.png">
+<img id="Rechts8" src="note.png">
+<img id="Rechts9" src="note.png">
+<img id="Rechts10" src="note.png">
+<img id="Rechts11" src="note.png">
+<img id="Rechts12" src="note.png">
+<img id="Rechts13" src="note.png">
+<img id="Rechts14" src="note.png">
+<img id="Rechts15" src="note.png">
+<img id="Rechts16" src="note.png">
+<img id="Rechts17" src="note.png">
+<img id="Rechts18" src="note.png">
+<img id="Rechts19" src="note.png">
+<img id="Rechts20" src="note.png">
+<img id="Rechts21" src="note.png">
+<img id="Rechts22" src="note.png">
+<img id="Rechts23" src="note.png">
+<center>
+<h2>Speed</h2>
+<p><input id="speed" type="number" min="500" value="10000" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
+<h2>Spectrum</h2>
+<p><input id="notes_min" type="number" value="0"> - <input id="notes_max" type="number" value="0"></p>
+<table>
+<tr><th>ID</th><th>Musical note</th></tr>
+<tr><td>9</td><td>E2</td></tr>
+<tr><td>8</td><td>D2</td></tr>
+<tr><td>7</td><td>C2</td></tr>
+<tr><td>6</td><td>H1</td></tr>
+<tr><td>5</td><td>A1</td></tr>
+<tr><td>4</td><td>G1</td></tr>
+<tr><td>3</td><td>F1</td></tr>
+<tr><td>2</td><td>E1</td></tr>
+<tr><td>1</td><td>D1</td></tr>
+<tr><td>0</td><td>C1</td></tr>
+</table>
+</center>
+</body>
+</html>
+
+<script>
+var intervall = 50;
+var url = window.location.href;
+var params = url.split('?');
+if (params[1])
+	intervall = params[1];
+
+var myVar = setInterval(myTimer, intervall);
+
+var RechtsYAbstand = 28;
+var LinksYAbstand = 48 - 196;
+
+var RechtsMin = 9; // = H1
+var RechtsMax = 11; // = c1
+if (params[2])
+	RechtsMin = params[2];
+if (params[3])
+	RechtsMax = params[3];
+
+var RechtsNoten = 24;
+var RechtsAbstand = 50;
+var RechtsMaximum = RechtsNoten * RechtsAbstand;
+var RechtsPositionX = new Array(RechtsNoten);
+var RechtsPositionY = new Array(RechtsNoten);
+
+for (var i = 0; i < RechtsNoten; i++) {
+	RechtsPositionX[i] = i * RechtsAbstand;
+}
+
+function myTimer() {
+	for (var i = 0; i < RechtsNoten; i++) {
+		RechtsPositionX[i] = RechtsPositionX[i] - 1;
+		if (RechtsPositionX[i] < 1) {
+			RechtsPositionX[i] = RechtsMaximum;
+			if (Math.random() < 0.5 && i != 0)
+			{
+				RechtsPositionY[i] = RechtsPositionY[i-1];
+				if (RechtsMin != RechtsMax) {
+					if (RechtsPositionY[i] == RechtsMin)
+						RechtsPositionY[i]++;
+					else if (RechtsPositionY[i] == RechtsMax)
+						RechtsPositionY[i]--;
+					else
+					{
+						if (Math.random() < 0.5 && RechtsPositionY[i] != RechtsMax)
+							RechtsPositionY[i]++;
+						else if (RechtsMax && RechtsPositionY[i] != RechtsMin)
+							RechtsPositionY[i]--;
+					}
+				}
+			}
+			else
+				RechtsPositionY[i] = Math.floor(Math.random() * (RechtsMax - RechtsMin + 1) + RechtsMin);
+			document.getElementById("Rechts" + i.toString()).style.top = RechtsPositionY[i] * 10 - RechtsYAbstand + "px";
+		}
+		document.getElementById("Rechts" + i.toString()).style.left = RechtsPositionX[i];
+	}
+}
+
+function setIntervall(inter) {
+	intervall = inter;
+	clearTimeout(myVar);
+	var myVar = setInterval(myTimer, intervall);
+}
+</script>
