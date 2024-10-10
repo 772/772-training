@@ -1,6 +1,6 @@
 # eye-training
 
-https://772.github.io/eye-training/
+[notes.html](notes.html)
 
 ## License
 
