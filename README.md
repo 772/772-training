@@ -1,4 +1,4 @@
-# eye-training
+# 772-training
 
 [notes.html](notes.html)
 
