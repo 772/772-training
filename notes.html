@@ -39,21 +39,12 @@
 <img id="Rechts23" src="note.png">
 <center>
 <h2>Speed</h2>
-<p><input id="speed" type="number" min="500" value="10000" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
-<h2>Spectrum</h2>
-<p><input id="notes_min" type="number" value="0"> - <input id="notes_max" type="number" value="0"></p>
+<p><input id="speed" type="number" min="1" value="33" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
+<h2>Amount of notes</h2>
+<p><input id="amount_of_notes" type="number" value="3" min="1" max="10"></p>
 <table>
-<tr><th>ID</th><th>Musical note</th></tr>
-<tr><td>9</td><td>E2</td></tr>
-<tr><td>8</td><td>D2</td></tr>
-<tr><td>7</td><td>C2</td></tr>
-<tr><td>6</td><td>H1</td></tr>
-<tr><td>5</td><td>A1</td></tr>
-<tr><td>4</td><td>G1</td></tr>
-<tr><td>3</td><td>F1</td></tr>
-<tr><td>2</td><td>E1</td></tr>
-<tr><td>1</td><td>D1</td></tr>
-<tr><td>0</td><td>C1</td></tr>
+<tr><th>Amount of Notes</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><th>Highest note</th><td>C1</td><td>D1</td><td>E1</td><td>F1</td><td>G1</td><td>A1</td><td>H1</td><td>C2</td><td>D2</td><td>E2</td></tr>
 </table>
 </center>
 </body>
@@ -61,22 +52,11 @@
 
 <script>
 var intervall = 50;
-var url = window.location.href;
-var params = url.split('?');
-if (params[1])
-	intervall = params[1];
-
 var myVar = setInterval(myTimer, intervall);
 
-var RechtsYAbstand = 28;
 var LinksYAbstand = 48 - 196;
 
-var RechtsMin = 9; // = H1
-var RechtsMax = 11; // = c1
-if (params[2])
-	RechtsMin = params[2];
-if (params[3])
-	RechtsMax = params[3];
+var RechtsMax = 2;
 
 var RechtsNoten = 24;
 var RechtsAbstand = 50;
@@ -96,8 +76,8 @@ function myTimer() {
 			if (Math.random() < 0.5 && i != 0)
 			{
 				RechtsPositionY[i] = RechtsPositionY[i-1];
-				if (RechtsMin != RechtsMax) {
-					if (RechtsPositionY[i] == RechtsMin)
+				if (0 != RechtsMax) {
+					if (RechtsPositionY[i] == 0)
 						RechtsPositionY[i]++;
 					else if (RechtsPositionY[i] == RechtsMax)
 						RechtsPositionY[i]--;
@@ -105,14 +85,14 @@ function myTimer() {
 					{
 						if (Math.random() < 0.5 && RechtsPositionY[i] != RechtsMax)
 							RechtsPositionY[i]++;
-						else if (RechtsMax && RechtsPositionY[i] != RechtsMin)
+						else if (RechtsMax && RechtsPositionY[i] != 0)
 							RechtsPositionY[i]--;
 					}
 				}
 			}
 			else
-				RechtsPositionY[i] = Math.floor(Math.random() * (RechtsMax - RechtsMin + 1) + RechtsMin);
-			document.getElementById("Rechts" + i.toString()).style.top = RechtsPositionY[i] * 10 - RechtsYAbstand + "px";
+				RechtsPositionY[i] = Math.floor(Math.random() * RechtsMax);
+			document.getElementById("Rechts" + i.toString()).style.top = 70 - RechtsPositionY[i] * 10 + "px";
 		}
 		document.getElementById("Rechts" + i.toString()).style.left = RechtsPositionX[i];
 	}
@@ -124,3 +104,4 @@ function setIntervall(inter) {
 	var myVar = setInterval(myTimer, intervall);
 }
 </script>
+
