@@ -13,35 +13,35 @@
 <body>
 <div class="first"></div><div></div><div></div><div></div><div></div>
 <br><br><br><br>
-<img id="Rechts0" src="note.png">
-<img id="Rechts1" src="note.png">
-<img id="Rechts2" src="note.png">
-<img id="Rechts3" src="note.png">
-<img id="Rechts4" src="note.png">
-<img id="Rechts5" src="note.png">
-<img id="Rechts6" src="note.png">
-<img id="Rechts7" src="note.png">
-<img id="Rechts8" src="note.png">
-<img id="Rechts9" src="note.png">
-<img id="Rechts10" src="note.png">
-<img id="Rechts11" src="note.png">
-<img id="Rechts12" src="note.png">
-<img id="Rechts13" src="note.png">
-<img id="Rechts14" src="note.png">
-<img id="Rechts15" src="note.png">
-<img id="Rechts16" src="note.png">
-<img id="Rechts17" src="note.png">
-<img id="Rechts18" src="note.png">
-<img id="Rechts19" src="note.png">
-<img id="Rechts20" src="note.png">
-<img id="Rechts21" src="note.png">
-<img id="Rechts22" src="note.png">
-<img id="Rechts23" src="note.png">
+<img id="Note0" src="note.png">
+<img id="Note1" src="note.png">
+<img id="Note2" src="note.png">
+<img id="Note3" src="note.png">
+<img id="Note4" src="note.png">
+<img id="Note5" src="note.png">
+<img id="Note6" src="note.png">
+<img id="Note7" src="note.png">
+<img id="Note8" src="note.png">
+<img id="Note9" src="note.png">
+<img id="Note10" src="note.png">
+<img id="Note11" src="note.png">
+<img id="Note12" src="note.png">
+<img id="Note13" src="note.png">
+<img id="Note14" src="note.png">
+<img id="Note15" src="note.png">
+<img id="Note16" src="note.png">
+<img id="Note17" src="note.png">
+<img id="Note18" src="note.png">
+<img id="Note19" src="note.png">
+<img id="Note20" src="note.png">
+<img id="Note21" src="note.png">
+<img id="Note22" src="note.png">
+<img id="Note23" src="note.png">
 <center>
 <h2>Speed</h2>
-<p><input id="speed" type="number" min="1" value="33" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
+<p><input id="speed" type="number" min="1" value="25" max="100" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
 <h2>Amount of notes</h2>
-<p><input id="amount_of_notes" type="number" value="3" min="1" max="10"></p>
+<p><input id="amount_of_notes" type="number" value="3" min="1" max="10" onchange="setAmountOfNotes(document.getElementById('amount_of_notes').value)"></p>
 <table>
 <tr><th>Amount of Notes</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
 <tr><th>Highest note</th><td>C1</td><td>D1</td><td>E1</td><td>F1</td><td>G1</td><td>A1</td><td>H1</td><td>C2</td><td>D2</td><td>E2</td></tr>
@@ -51,57 +51,56 @@
 </html>
 
 <script>
-var intervall = 50;
-var myVar = setInterval(myTimer, intervall);
+let timer = setInterval(myTimer, document.getElementById('speed').value);
+let amount_of_notes = document.getElementById('amount_of_notes').value;
 
-var LinksYAbstand = 48 - 196;
+const RechtsNoten = 24;
+const RechtsAbstand = 50;
+let amount_of_notesimum = RechtsNoten * RechtsAbstand;
+let pos_x = new Array(RechtsNoten);
+let pos_y = new Array(RechtsNoten);
 
-var RechtsMax = 2;
-
-var RechtsNoten = 24;
-var RechtsAbstand = 50;
-var RechtsMaximum = RechtsNoten * RechtsAbstand;
-var RechtsPositionX = new Array(RechtsNoten);
-var RechtsPositionY = new Array(RechtsNoten);
-
-for (var i = 0; i < RechtsNoten; i++) {
-	RechtsPositionX[i] = i * RechtsAbstand;
+for (let i = 0; i < RechtsNoten; i++) {
+	pos_x[i] = i * RechtsAbstand;
 }
 
 function myTimer() {
-	for (var i = 0; i < RechtsNoten; i++) {
-		RechtsPositionX[i] = RechtsPositionX[i] - 1;
-		if (RechtsPositionX[i] < 1) {
-			RechtsPositionX[i] = RechtsMaximum;
+	for (let i = 0; i < RechtsNoten; i++) {
+		pos_x[i] = pos_x[i] - 1;
+		if (pos_x[i] < 1) {
+			pos_x[i] = amount_of_notesimum;
 			if (Math.random() < 0.5 && i != 0)
 			{
-				RechtsPositionY[i] = RechtsPositionY[i-1];
-				if (0 != RechtsMax) {
-					if (RechtsPositionY[i] == 0)
-						RechtsPositionY[i]++;
-					else if (RechtsPositionY[i] == RechtsMax)
-						RechtsPositionY[i]--;
+				pos_y[i] = pos_y[i-1];
+				if (amount_of_notes > 1) {
+					if (pos_y[i] == 0)
+						pos_y[i]++;
+					else if (pos_y[i] == amount_of_notes)
+						pos_y[i]--;
 					else
 					{
-						if (Math.random() < 0.5 && RechtsPositionY[i] != RechtsMax)
-							RechtsPositionY[i]++;
-						else if (RechtsMax && RechtsPositionY[i] != 0)
-							RechtsPositionY[i]--;
+						if (Math.random() < 0.5 && pos_y[i] != amount_of_notes)
+							pos_y[i]++;
+						else if (amount_of_notes && pos_y[i] != 0)
+							pos_y[i]--;
 					}
 				}
 			}
-			else
-				RechtsPositionY[i] = Math.floor(Math.random() * RechtsMax);
-			document.getElementById("Rechts" + i.toString()).style.top = 70 - RechtsPositionY[i] * 10 + "px";
+			else {
+				pos_y[i] = Math.floor(Math.random() * amount_of_notes);
+			}
+			document.getElementById("Note" + i.toString()).style.top = 82 - pos_y[i] * 10 + "px";
 		}
-		document.getElementById("Rechts" + i.toString()).style.left = RechtsPositionX[i];
+		document.getElementById("Note" + i.toString()).style.left = pos_x[i];
 	}
 }
 
 function setIntervall(inter) {
-	intervall = inter;
-	clearTimeout(myVar);
-	var myVar = setInterval(myTimer, intervall);
+	clearTimeout(timer);
+	timer = setInterval(myTimer, inter);
+}
+
+function setAmountOfNotes(notes) {
+	amount_of_notes = notes;
 }
 </script>
-
