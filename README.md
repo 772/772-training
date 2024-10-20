@@ -1,6 +1,7 @@
 # 772-training
 
 [notes.html](notes.html)
+[read.html](read.html)
 
 ## License
 
