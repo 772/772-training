@@ -39,7 +39,8 @@
 <img id="Note23" src="note.png">
 <center>
 <h2>Speed</h2>
-<p><input id="speed" type="number" min="1" value="25" max="100" onchange="setIntervall(document.getElementById('speed').value)"> ms per musical note</p>
+<p><input id="speed" type="number" min="1" value="25" max="100" onchange="setIntervall(document.getElementById('speed').value)"></p>
+<p><input id="stop" type="button" value="Stop" onclick="setIntervall(1000000000)"></p>
 <h2>Amount of notes</h2>
 <p><input id="amount_of_notes" type="number" value="3" min="1" max="10" onchange="setAmountOfNotes(document.getElementById('amount_of_notes').value)"></p>
 <table>
