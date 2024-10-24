@@ -73,11 +73,14 @@
                 <td>E2</td>
             </tr>
         </table>
+        <h2>Chance that next note is near the last one</h2>
+        <p><input id="randomness" type="number" min="0" max="100" value="50" onchange="setRandomness(document.getElementById('randomness').value)"> %</p>
     </body>
 </html>
 <script>
     let timer = setInterval(myTimer, document.getElementById('speed').value);
     let amount_of_notes = document.getElementById('amount_of_notes').value;
+    let randomness = document.getElementById('randomness').value;
     
     const RechtsNoten = 24;
     const RechtsAbstand = 50;
@@ -94,7 +97,7 @@
     		pos_x[i] = pos_x[i] - 1;
     		if (pos_x[i] < 1) {
     			pos_x[i] = amount_of_notesimum;
-    			if (Math.random() < 0.5 && i != 0)
+    			if (Math.random() < randomness/100 && i != 0)
     			{
     				pos_y[i] = pos_y[i-1];
     				if (amount_of_notes > 1) {
@@ -127,5 +130,9 @@
     
     function setAmountOfNotes(notes) {
     	amount_of_notes = notes;
+    }
+    
+    function setRandomness(rnd) {
+    	randomness = rnd;
     }
 </script>
